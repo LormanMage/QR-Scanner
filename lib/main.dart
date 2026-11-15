@@ -8,6 +8,7 @@ import 'history_screen.dart';
 import 'inventory_provider.dart';
 import 'inventory_scan_screen.dart';
 import 'issue_confirm_screen.dart';
+import 'inventory_history_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -85,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (_) => const InventoryScanScreen()),
+                      builder: (_) => const InventoryHistoryScreen()), // ← ведёт на историю,
                 ),
               ),
             ],
@@ -113,7 +114,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-// Класс для большой кнопки (он у тебя потерялся)
+// Класс для большой кнопки
 class _MainButton extends StatelessWidget {
   final IconData icon;
   final String label;
