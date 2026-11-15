@@ -12,9 +12,7 @@ import 'inventory_session.dart';
 ///   убьют из памяти посреди инвентаризации, при следующем запуске
 ///   можно продолжить;
 /// - дубликаты по id оборудования отсекаются (см. [add]);
-/// - метод [finish] сейчас просто очищает сессию. Если понадобится
-///   архив завершённых инвентаризаций — сюда легко добавить список
-///   `_completed` и ещё один ключ в SharedPreferences.
+/// - метод [finish] сейчас просто очищает сессию.
 class InventoryProvider extends ChangeNotifier {
   static const _currentKey = 'inventory_current';
 
