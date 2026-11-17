@@ -9,6 +9,7 @@ import 'inventory_provider.dart';
 import 'inventory_scan_screen.dart';
 import 'issue_confirm_screen.dart';
 import 'inventory_history_screen.dart';
+import 'gallery_scanner.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,8 +67,30 @@ class HomeScreen extends StatelessWidget {
               _MainButton(
                 icon: Icons.photo_library,
                 label: 'Фото из галереи',
-                onTap: () {
-                  // TODO: выбор фото из галереи + распознавание QR
+                onTap: () async {
+                  final scanner = GalleryScanner();
+                  final raw = await scanner.scanQrFromGallery();
+                  scanner.dispose();
+
+                  if (raw == null) {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('QR-код не найден на фото')),
+                      );
+                    }
+                    return;
+                  }
+
+                  final req = EquipmentRequest.fromQr(raw);
+
+                  if (!context.mounted) return;
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => IssueConfirmScreen(request: req),
+                    ),
+                  );
                 },
               ),
               const SizedBox(height: 12),
